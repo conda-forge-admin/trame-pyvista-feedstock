@@ -1,5 +1,5 @@
 {% set name = "trame-pyvista" %}
-{% set version = "0.1.1" %}
+{% set version = "0.1.6" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 31dd408ab682f7e3915ba98afdb84b6f612384f3031d2828485a296f59dab6fe
+  sha256: 4cac6c91244fed48be220191184566b5984230b41e088d1b101d6dcd9485f29e
 
 build:
   noarch: python
@@ -23,12 +23,14 @@ requirements:
     - pip
   run:
     - python >={{ python_min }}
+    - packaging
     - pyvista >=0.48
-    - trame >=2.5.2
-    - trame-client >=2.12.7
-    - trame-server >=2.11.7,!=3.7.*,!=3.8.0
-    - trame-vtk >=2.5.8,<2.11.9,!=2.10.3,!=2.11.0,!=2.11.1,!=2.11.2,!=2.11.3,!=2.11.4,!=2.11.5,!=2.11.6
-    - trame-vuetify >=2.3.1
+    - trame >=2.5.2,<3.13.3
+    - trame-client >=2.12.7,<3.13.3
+    - trame-common <1.2.5
+    - trame-server >=2.11.7,!=3.7.*,!=3.8.0,<3.12.6
+    - trame-vtk >=2.5.8,!=2.10.3,!=2.11.0,!=2.11.1,!=2.11.2,!=2.11.3,!=2.11.4,!=2.11.5,!=2.11.6,!=2.11.9,!=2.11.10,!=2.11.11,!=2.11.12,!=2.11.13,!=2.11.14,<2.11.16
+    - trame-vuetify >=2.3.1,!=3.2.3,!=3.2.4,<3.2.6
 
 test:
   imports:
@@ -36,6 +38,7 @@ test:
     - trame_pyvista
   commands:
     - pip check
+    - python -c "import trame_pyvista; assert trame_pyvista.__version__ == '{{ version }}', trame_pyvista.__version__"
   requires:
     - pip
     - python {{ python_min }}
