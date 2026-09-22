@@ -38,6 +38,7 @@ test:
     - trame_pyvista
   commands:
     - pip check
+    - python -c "import trame_pyvista; assert trame_pyvista.__version__ == '{{ version }}', trame_pyvista.__version__"
   requires:
     - pip
     - python {{ python_min }}
